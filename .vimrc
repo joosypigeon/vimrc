@@ -1,65 +1,48 @@
-" All system-wide defaults are set in $VIMRUNTIME/debian.vim and sourced by
-" the call to :runtime you can find below.  If you wish to change any of those
-" settings, you should do it in this file (/etc/vim/vimrc), since debian.vim
-" will be overwritten everytime an upgrade of the vim packages is performed.
-" It is recommended to make changes after sourcing debian.vim since it alters
-" the value of the 'compatible' option.
+" General settings
 
-runtime! debian.vim
+" Tells Vim to use its own improved behavior, rather than emulating the older vi editor.
+set nocompatible
 
-" Vim will load $VIMRUNTIME/defaults.vim if the user does not have a vimrc.
-" This happens after /etc/vim/vimrc(.local) are loaded, so it will override
-" any settings in these files.
-" If you don't want that to happen, uncomment the below line to prevent
-" defaults.vim from being loaded.
-" let g:skip_defaults_vim = 1
+" Turn off filetype detection initially. This is often done when setting up a plugin manager like Vundle, and filetype detection is turned back on afterwards.
+filetype off
 
-" Uncomment the next line to make Vim more Vi-compatible
-" NOTE: debian.vim sets 'nocompatible'.  Setting 'compatible' changes numerous
-" options, so any other options should be set AFTER setting 'compatible'.
-"set compatible
+" Set tab width to 4 spaces. These three settings together make tabs behave like they're spaces, with each tab being 4 spaces wide.
 
-" Vim5 and later versions support syntax highlighting. Uncommenting the next
-" line enables syntax highlighting by default.
-if has("syntax")
-  syntax on
-endif
+" 'tabstop' sets the width of a tab character. Here, it's set to 4 spaces.
+set tabstop=4
 
-" If using a dark background within the editing area and syntax highlighting
-" turn on this option as well
-"set background=dark
+" 'shiftwidth' sets the number of spaces used for each step of (auto)indent. Setting it to the same as 'tabstop' makes the behavior of tabs and spaces consistent.
+set shiftwidth=4
 
-" Uncomment the following to have Vim jump to the last position when
-" reopening a file
-"au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+" 'expandtab' makes the tab key insert spaces instead of actual tab characters.
+set expandtab
 
-" Uncomment the following to have Vim load indentation rules and plugins
-" according to the detected filetype.
-"filetype plugin indent on
-
-" The following are commented out as they cause vim to behave a lot
-" differently from regular Vi. They are highly recommended though.
-"set showcmd		" Show (partial) command in status line.
-"set showmatch		" Show matching brackets.
-"set ignorecase		" Do case insensitive matching
-"set smartcase		" Do smart case matching
-"set incsearch		" Incremental search
-"set autowrite		" Automatically save before commands like :next and :make
-"set hidden		" Hide buffers when they are abandoned
-set mouse=a		" Enable mouse usage (all modes)
+" Show line numbers on the left
 set number
-" Enable auto completion menu after pressing TAB.
+
+" Enable mouse in all modes (a for all). This lets you use your mouse for things like positioning the cursor and scrolling.
+set mouse=a
+
+" Enable line wrapping. Long lines are wrapped to the next line.
+set wrap
+
+" Turn on syntax highlighting, which colors different parts of your code differently for readability.
+syntax on
+
+" Highlight all matches of your search in the file.
+set hlsearch
+
+" Automatically reload the file when it's changed from the outside. Useful if you're making changes in another program.
+set autoread
+
+" Enable automatic indentation. Vim will try to automatically adjust the indentation when you create a new line.
+set autoindent
+
+" Enable wildmenu. This provides a more interactive command line, allowing you to tab through and select command line options. 
 set wildmenu
 
-" Make wildmenu behave like similar to Bash completion.
+" Determine how command line tab completion behaves. 'list' means all matching commands will be listed when you press <Tab>.
 set wildmode=list
 
-" There are certain files that we would never want to edit with Vim.
-" Wildmenu will ignore files with these extensions.
+" A list of file types that should be ignored by tab completion.
 set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx
-
-" Source a global configuration file if available
-if filereadable("/etc/vim/vimrc.local")
-  source /etc/vim/vimrc.local
-endif
-
